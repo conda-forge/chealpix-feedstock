@@ -7,35 +7,36 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://sourceforge.net/projects/healpix/files/Healpix_3.30/{{ name}}-{{ version }}.tar.gz
+  url: https://sourceforge.net/projects/healpix/files/Healpix_3.30/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 1000
+  number: 1001
   skip: true  # [win]
 
 requirements:
   build:
-    - pkg-config
-    - make
     - {{ compiler('c') }}
+    - pkg-config  # [not win]
+    - make  # [not win]
   host:
     - cfitsio
   run:
     - cfitsio
 
 test:
+  requires:
+    - pkg-config  # [not win]
   commands:
     - test -f ${PREFIX}/include/chealpix.h  # [not win]
     - test -f ${PREFIX}/lib/libchealpix${SHLIB_EXT}  # [not win]
-    - test -f ${PREFIX}/lib/pkgconfig/chealpix.pc  # [not win]
+    - test $(pkg-config --modversion "${PKG_NAME}") == "${PKG_VERSION}"  # [not win]
 
 about:
   home: https://sourceforge.net/projects/healpix/
-  license: GPLv2
+  license: GPL-2.0-or-later
   license_family: GPL
-  license_file: '{{ environ["RECIPE_DIR"] }}/COPYING'
+  license_file: COPYING
   summary: Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere.
   description: |
     HEALPix is a Hierarchical, Equal Area, and iso-Latitude Pixelation of
