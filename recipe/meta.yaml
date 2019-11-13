@@ -1,24 +1,26 @@
 {% set name = "chealpix" %}
-{% set version = "3.30.0" %}
-{% set sha256 = "dbc5ba0d84d6e5f69bdffe6eb572c206e8fefd5bb187d52bbf9b2763b636dbd7" %}
+{% set version = "3.31" %}
+{% set date = "2016Aug26" %}
+{% set sha256 = "ddf437442b6d5ae7d75c9afaafc4ec43921f903c976e25db3c5ed5185a181542" %}
 
 package:
-  name: {{ name }}
-  version: {{ version }}
+  name: "{{ name|lower }}"
+  version: "{{ version }}.0"
 
 source:
-  url: https://sourceforge.net/projects/healpix/files/Healpix_3.30/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: "https://sourceforge.net/projects/healpix/files/Healpix_{{ version.split('.')[:2] | join('.') }}/Healpix_{{ version }}_{{ date }}.tar.gz"
+  sha256: "{{ sha256 }}"
 
 build:
-  number: 1002
+  number: 0
   skip: true  # [win]
 
 requirements:
   build:
+    - autoconf
     - {{ compiler('c') }}
-    - pkg-config  # [not win]
-    - make  # [not win]
+    - make
+    - pkg-config
   host:
     - cfitsio
   run:
@@ -33,11 +35,13 @@ test:
     - test $(pkg-config --modversion "${PKG_NAME}") == "${PKG_VERSION}"  # [not win]
 
 about:
-  home: https://sourceforge.net/projects/healpix/
-  license: GPL-2.0-or-later
-  license_family: GPL
-  license_file: COPYING
-  summary: Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere.
+  home: "https://sourceforge.net/projects/healpix/"
+  doc_url: "http://healpix.sf.net/documentation.php"
+  dev_url: "https://sourceforge.net/projects/healpix/"
+  license: "GPL-2.0-or-later"
+  license_family: "GPL"
+  license_file: "COPYING"
+  summary: "Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere."
   description: |
     HEALPix is a Hierarchical, Equal Area, and iso-Latitude Pixelation of
     the sphere designed to support efficiently (1) local operations on the
@@ -46,8 +50,6 @@ about:
     HEALPix based mathematical software meets the challenges presented 
     by high resolution and large volume data sets, such as the WMAP and
     Planck CMB mission products.
-  doc_url: http://healpix.sf.net/documentation.php
-  dev_url: https://sourceforge.net/projects/healpix/
 
 extra:
   recipe-maintainers:
