@@ -21,6 +21,7 @@ requirements:
     - {{ compiler('c') }}
     - make
     - pkg-config
+    - sed
   host:
     - cfitsio
   run:
