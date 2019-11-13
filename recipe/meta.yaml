@@ -20,6 +20,7 @@ build:
 requirements:
   build:
     - autoconf
+    - automake
     - {{ compiler('c') }}
     - make
     - pkg-config
