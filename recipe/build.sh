@@ -1,4 +1,7 @@
 #!/bin/bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./src/healpy/cfitsio
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./src/healpy/healpixsubmodule/src/cxx/autotools
 
 set -ex
 
@@ -18,8 +21,10 @@ autoreconf --install
 # build
 make -j ${CPU_COUNT}
 
-# test
-make -j ${CPU_COUNT} check
+# test (not when cross compiling)
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
+	make -j ${CPU_COUNT} check
+fi
 
 # install
 make -j ${CPU_COUNT} install

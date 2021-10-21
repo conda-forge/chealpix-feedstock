@@ -23,6 +23,7 @@ requirements:
   build:
     - autoconf
     - automake
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - libtool
     - make
