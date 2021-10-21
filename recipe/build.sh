@@ -21,8 +21,10 @@ autoreconf --install
 # build
 make -j ${CPU_COUNT}
 
-# test
-make -j ${CPU_COUNT} check
+# test (not when cross compiling)
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
+	make -j ${CPU_COUNT} check
+fi
 
 # install
 make -j ${CPU_COUNT} install
