@@ -25,6 +25,7 @@ requirements:
     - automake
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - libtool
     - make
     - pkg-config
