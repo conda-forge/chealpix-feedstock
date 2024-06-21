@@ -14,7 +14,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 5
+  number: 6
   run_exports:
     - {{ pin_subpackage("chealpix", max_pin="x.x") }}
   skip: true  # [win]
@@ -25,6 +25,7 @@ requirements:
     - automake
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - libtool
     - make
     - pkg-config
