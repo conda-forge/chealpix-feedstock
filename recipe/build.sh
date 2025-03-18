@@ -18,6 +18,8 @@ autoreconf --install
 # configure
 ./configure --prefix=${PREFIX}
 
+[[ "$target_platform" == "win-64" ]] && patch_libtool
+
 # build
 make -j ${CPU_COUNT}
 
