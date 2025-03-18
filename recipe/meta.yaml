@@ -10,26 +10,29 @@ package:
 source:
   url: "https://sourceforge.net/projects/healpix/files/Healpix_{{ version.split('.')[:2] | join('.') }}/Healpix_{{ version }}_{{ date }}.tar.gz"
   sha256: "{{ sha256 }}"
+  patches:
+    - fix_link_on_windows.patch  # [win]
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 7
+  number: 8
   run_exports:
     - {{ pin_subpackage("chealpix", max_pin="x.x") }}
-  skip: true  # [win]
 
 requirements:
   build:
-    - autoconf
-    - automake
+    - autoconf  # [not win]
+    - automake  # [not win]
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
-    - libtool
-    - make
-    - pkg-config
-    - sed
+    - libtool  # [not win]
+    - make  # [not win]
+    - pkg-config  # [not win]
+    - sed  # [not win]
+    - autotools_clang_conda  # [win]
+    - m2-pkg-config  # [win]
   host:
     - cfitsio
   run:
