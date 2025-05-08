@@ -211,4 +211,5 @@ Feedstock Maintainers
 =====================
 
 * [@duncanmmacleod](https://github.com/duncanmmacleod/)
+* [@feng1m8](https://github.com/feng1m8/)
 
