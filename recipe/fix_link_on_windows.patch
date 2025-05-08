@@ -1,0 +1,23 @@
+diff -r -u src/C/autotools/Makefile.am src/C/autotools/Makefile.am
+--- src/C/autotools/Makefile.am	2014-02-27 17:33:31.000000000 +0800
++++ src/C/autotools/Makefile.am	2025-03-18 20:54:51.528910000 +0800
+@@ -12,6 +12,7 @@
+ test_chealpix_LDADD = libchealpix.la
+ 
+ AM_CPPFLAGS = $(CFITSIO_CFLAGS)
++AM_LDFLAGS = -no-undefined
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+ nodist_pkgconfig_DATA = @PACKAGE_NAME@.pc
+diff -r -u src/C/autotools/configure.ac src/C/autotools/configure.ac
+--- src/C/autotools/configure.ac	2016-03-22 22:28:18.000000000 +0800
++++ src/C/autotools/configure.ac	2025-03-18 20:54:20.951490500 +0800
+@@ -37,7 +37,7 @@
+ dnl
+ dnl Linking against libcfitsio requires libm too.
+ dnl
+-CFITSIO_LIBS="$CFITSIO_LIBS -lm"
++CFITSIO_LIBS="$CFITSIO_LIBS"
+ dnl
+ dnl With pkg-config < 0.24, PKG_CHECK_MODULES does not AC_SUBST the _CFLAGS
+ dnl and _LIBS variables.
