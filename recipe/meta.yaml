@@ -16,7 +16,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 8
+  number: 9
   run_exports:
     - {{ pin_subpackage("chealpix", max_pin="x.x") }}
   ignore_run_exports:
