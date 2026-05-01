@@ -17,7 +17,10 @@ head -n 1 configure.ac
 autoreconf --install
 
 # configure
-./configure --prefix=${PREFIX}
+./configure \
+  --disable-static \
+  --enable-shared \
+  --prefix=${PREFIX}
 
 [[ "$target_platform" == "win-64" ]] && patch_libtool
 
