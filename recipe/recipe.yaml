@@ -39,26 +39,27 @@ requirements:
     - cfitsio
   run_exports:
     - ${{ pin_subpackage("chealpix", upper_bound="x.x") }}
-  ignore_run_exports:
-    by_name:
-      - if: win
-        then:
-          - ucrt
-          - vc14_runtime
 
 tests:
   - package_contents:
       lib:
-        - chealpix
+        - if: win
+          then: 
+            - chealpix.lib
+            - chealpix-*.dll
+          else: 
+            - chealpix
       include:
         - chealpix.h
-  - if: not win
-    then:
-      requirements:
-        run:
-          - pkg-config
-      script:
-        - pkg-config --print-errors --exact-version "${PKG_VERSION}" "${PKG_NAME}"
+  - requirements:
+      run:
+        - pkg-config
+    script:
+      - if: win
+        then:
+          - pkg-config --print-errors --exact-version "%PKG_VERSION%" "%PKG_NAME%"
+        else:
+          - pkg-config --print-errors --exact-version "${PKG_VERSION}" "${PKG_NAME}"
 
 about:
   summary: Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere.
