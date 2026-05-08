@@ -2,15 +2,16 @@ schema_version: 1
 
 context:
   name: chealpix
-  version: "3.31"
+  src_version: "3.31"
+  version: "${{ src_version }}.0"
   date: 2016Aug26
 
 package:
   name: ${{ name|lower }}
-  version: ${{ version }}.0
+  version: ${{ version }}
 
 source:
-  url: https://sourceforge.net/projects/healpix/files/Healpix_${{ version }}/Healpix_${{ version }}_${{ date }}.tar.gz
+  url: https://sourceforge.net/projects/healpix/files/Healpix_${{ src_version }}/Healpix_${{ src_version }}_${{ date }}.tar.gz
   sha256: ddf437442b6d5ae7d75c9afaafc4ec43921f903c976e25db3c5ed5185a181542
   patches:
     - if: win
@@ -44,10 +45,10 @@ tests:
   - package_contents:
       lib:
         - if: win
-          then: 
+          then:
             - chealpix.lib
             - chealpix-*.dll
-          else: 
+          else:
             - chealpix
       include:
         - chealpix.h
@@ -55,11 +56,8 @@ tests:
       run:
         - pkg-config
     script:
-      - if: win
-        then:
-          - pkg-config --print-errors --exact-version "%PKG_VERSION%" "%PKG_NAME%"
-        else:
-          - pkg-config --print-errors --exact-version "${PKG_VERSION}" "${PKG_NAME}"
+      - pkg-config --print-errors --exact-version "${{ version }}" chealpix
+      - pkg-config --libs chealpix
 
 about:
   summary: Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere.
