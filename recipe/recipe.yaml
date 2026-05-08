@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: chealpix
-  version: 3.31
+  version: "3.31"
   date: 2016Aug26
 
 package:
