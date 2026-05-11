@@ -6,12 +6,16 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./src/healpy/healpixsubmodule/src/cxx/
 
 set -ex
 
-pushd src/C/autotools
+C_SRC_DIR="src/C/autotools"
+CXX_SRC_DIR="src/cxx"
 
-# update version number (HACK)
-sed -i'' -e "/AC_INIT/c\AC_INIT([chealpix], [${PKG_VERSION}], [healpix-support@lists.sourceforge.net])" configure.ac
+# Get the correct version number from the CXX configure.ac file and update the C equivalent
+echo "Before: $(grep AC_INIT "${SRC_DIR}/${C_SRC_DIR}/configure.ac")"
+sed -i "s/\(AC_INIT([^,]*,[[:space:]]*\[\)[^]]*\(\][[:space:]]*,\?.*)\)/\1$(sed -n 's/^[[:space:]]*AC_INIT([^,]*,[[:space:]]*\[\([^]]*\)\].*/\1/p' ${CXX_SRC_DIR}/configure.ac)\2/" ${C_SRC_DIR}/configure.ac
 
-head -n 1 configure.ac
+# Check the new configure.ac AC_INIT
+cd ${C_SRC_DIR}
+echo "After: $(grep AC_INIT "./configure.ac")"
 
 # rebuild configure script
 autoreconf --install
