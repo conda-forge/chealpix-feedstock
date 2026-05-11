@@ -1,0 +1,81 @@
+schema_version: 1
+
+context:
+  name: chealpix
+  src_version: "3.31"
+  version: "${{ src_version }}.0"
+  date: 2016Aug26
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://sourceforge.net/projects/healpix/files/Healpix_${{ src_version }}/Healpix_${{ src_version }}_${{ date }}.tar.gz
+  sha256: ddf437442b6d5ae7d75c9afaafc4ec43921f903c976e25db3c5ed5185a181542
+  patches:
+    - if: win
+      then: fix_link_on_windows.patch
+
+build:
+  number: 10
+
+requirements:
+  build:
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+    - gnuconfig
+    - if: win
+      then:
+        - autotools_clang_conda
+        - m2-pkg-config
+      else:
+        - autoconf
+        - automake
+        - libtool
+        - make
+        - pkg-config
+        - sed
+  host:
+    - cfitsio
+  run_exports:
+    - ${{ pin_subpackage("chealpix", upper_bound="x.x") }}
+
+tests:
+  - package_contents:
+      lib:
+        - if: win
+          then:
+            - chealpix.lib
+            - chealpix-*.dll
+          else:
+            - chealpix
+      include:
+        - chealpix.h
+  - requirements:
+      run:
+        - pkg-config
+    script:
+      - pkg-config --print-errors --exact-version "${{ version }}" chealpix
+      - pkg-config --libs chealpix
+
+about:
+  summary: Software for pixelization, hierarchical indexation, synthesis, analysis, and visualization of data on the sphere.
+  description: |
+    HEALPix is a Hierarchical, Equal Area, and iso-Latitude Pixelation of
+    the sphere designed to support efficiently (1) local operations on the
+    pixel set, (2) a hierarchical tree structure for multi-resolution
+    applications, and (3) the global Fast Spherical Harmonic transform.
+    HEALPix based mathematical software meets the challenges presented
+    by high resolution and large volume data sets, such as the WMAP and
+    Planck CMB mission products.
+  homepage: https://sourceforge.net/projects/healpix/
+  repository: https://sourceforge.net/projects/healpix/
+  documentation: http://healpix.sf.net/documentation.php
+  license: GPL-2.0-or-later
+  license_file: COPYING
+
+extra:
+  recipe-maintainers:
+    - duncanmmacleod
+    - feng1m8

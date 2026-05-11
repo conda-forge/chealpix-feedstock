@@ -21,7 +21,6 @@ HEALPix based mathematical software meets the challenges presented
 by high resolution and large volume data sets, such as the WMAP and
 Planck CMB mission products.
 
-
 Current build status
 ====================
 
