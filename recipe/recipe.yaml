@@ -2,9 +2,9 @@ schema_version: 1
 
 context:
   name: chealpix
-  src_version: "3.70"
+  src_version: "3.80"
   version: "${{ src_version }}.0"
-  date: 2020Jul23
+  date: 2021Jun22
 
 package:
   name: ${{ name|lower }}
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://sourceforge.net/projects/healpix/files/Healpix_${{ src_version }}/Healpix_${{ src_version }}_${{ date }}.tar.gz
-  sha256: 8841f171f1e22e75ea130e12e5cdc5bcf85dbec79f9f67dd1bf27e99fd20b6d1
+  sha256: 8de4aabaa3d55e0c63a62c621bfd77298732c6b75782016217f5659143acbcf5
   patches:
     - if: win
       then: fix_link_on_windows.patch
