@@ -24,7 +24,6 @@ requirements:
   build:
     - ${{ compiler("c") }}
     - ${{ stdlib("c") }}
-    - gnuconfig
     - if: win
       then:
         - autotools_clang_conda
