@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./src/healpy/cfitsio
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./src/healpy/healpixsubmodule/src/cxx/autotools
-
 set -ex
 
 C_SRC_DIR="src/C/autotools"

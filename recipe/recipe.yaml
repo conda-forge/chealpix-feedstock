@@ -2,9 +2,9 @@ schema_version: 1
 
 context:
   name: chealpix
-  src_version: "3.82"
+  src_version: "3.83"
   version: "${{ src_version }}.0"
-  date: 2022Jul28
+  date: 2024Nov13
 
 package:
   name: ${{ name|lower }}
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://sourceforge.net/projects/healpix/files/Healpix_${{ src_version }}/Healpix_${{ src_version }}_${{ date }}.tar.gz
-  sha256: 47629f057a2daf06fca3305db1c6950edb9e61bbe2d7ed4d98ff05809da2a127
+  sha256: 8876c18efc596fd706b2a004ac15f2fb60b795f2db6fbabea9d8ccf549531dda
   patches:
     - if: win
       then: fix_link_on_windows.patch
@@ -24,7 +24,6 @@ requirements:
   build:
     - ${{ compiler("c") }}
     - ${{ stdlib("c") }}
-    - gnuconfig
     - if: win
       then:
         - autotools_clang_conda
