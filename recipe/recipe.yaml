@@ -1,13 +1,12 @@
 schema_version: 1
 
 context:
-  name: chealpix
   src_version: "3.83"
   version: "${{ src_version }}.0"
   date: 2024Nov13
 
 package:
-  name: ${{ name|lower }}
+  name: chealpix
   version: ${{ version }}
 
 source:
