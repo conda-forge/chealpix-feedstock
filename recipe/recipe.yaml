@@ -26,13 +26,13 @@ requirements:
     - if: win
       then:
         - autotools_clang_conda
-        - m2-pkg-config
+        - m2-pkgconf
       else:
         - autoconf
         - automake
         - libtool
         - make
-        - pkg-config
+        - pkgconf
         - sed
   host:
     - cfitsio
